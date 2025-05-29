@@ -1,5 +1,5 @@
 CREATE TABLE configuration_items (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY,
     namespace TEXT NOT NULL,
     key TEXT NOT NULL,
     label TEXT,
