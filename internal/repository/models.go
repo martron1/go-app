@@ -11,6 +11,15 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Application struct {
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	UserID    uuid.UUID `json:"user_id"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	IsDeleted bool      `json:"is_deleted"`
+}
+
 type ConfigurationItem struct {
 	ID            uuid.UUID   `json:"id"`
 	Namespace     string      `json:"namespace"`
@@ -23,6 +32,25 @@ type ConfigurationItem struct {
 	CreatedAt     time.Time   `json:"created_at"`
 	UpdatedAt     time.Time   `json:"updated_at"`
 	IsDeleted     bool        `json:"is_deleted"`
+}
+
+type ConfigurationValue struct {
+	ID           uuid.UUID `json:"id"`
+	DeploymentID uuid.UUID `json:"deployment_id"`
+	Key          string    `json:"key"`
+	Value        string    `json:"value"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
+	IsDeleted    bool      `json:"is_deleted"`
+}
+
+type Deployment struct {
+	ID            uuid.UUID `json:"id"`
+	ApplicationID uuid.UUID `json:"application_id"`
+	Name          string    `json:"name"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
+	IsDeleted     bool      `json:"is_deleted"`
 }
 
 type Player struct {
