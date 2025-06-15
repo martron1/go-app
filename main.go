@@ -30,6 +30,7 @@ func main() {
 	handler.RegisterConfigurationItemRoutes(app)
 	handler.RegisterApplicationRoutes(app)
 	handler.RegisterConfigurationValueRoutes(app)
+	handler.RegisterDeploymentRoutes(app)
 
 	if err := app.Listen(":8080", createFiberConfig()); err != nil {
 		os.Exit(1)
