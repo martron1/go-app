@@ -3,7 +3,6 @@ package handler
 import (
 	"backend/internal/database"
 	"backend/internal/repository"
-	"context"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/google/uuid"
@@ -18,7 +17,7 @@ func RegisterConfigurationItemRoutes(app *fiber.App) {
 }
 
 func createConfigurationItemFiber(c fiber.Ctx) error {
-	ctx := context.Background()
+	ctx := c.Context()
 	var item repository.InsertConfigurationItemParams
 	if err := c.Bind().Body(&item); err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Invalid request: " + err.Error())
@@ -35,7 +34,7 @@ func createConfigurationItemFiber(c fiber.Ctx) error {
 }
 
 func getConfigurationItemFiber(c fiber.Ctx) error {
-	ctx := context.Background()
+	ctx := c.Context()
 	id, err := uuid.Parse(c.Params("id"))
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Invalid id: " + err.Error())
@@ -51,7 +50,7 @@ func getConfigurationItemFiber(c fiber.Ctx) error {
 }
 
 func listConfigurationItemsFiber(c fiber.Ctx) error {
-	ctx := context.Background()
+	ctx := c.Context()
 	tx, _ := database.Conn.Begin(ctx)
 	defer tx.Rollback(ctx)
 	repo := repository.New(tx)
@@ -63,7 +62,7 @@ func listConfigurationItemsFiber(c fiber.Ctx) error {
 }
 
 func updateConfigurationItemFiber(c fiber.Ctx) error {
-	ctx := context.Background()
+	ctx := c.Context()
 	var item repository.UpdateConfigurationItemParams
 
 	if err := c.Bind().Body(&item); err != nil {
@@ -82,7 +81,7 @@ func updateConfigurationItemFiber(c fiber.Ctx) error {
 }
 
 func deleteConfigurationItemFiber(c fiber.Ctx) error {
-	ctx := context.Background()
+	ctx := c.Context()
 	id, err := uuid.Parse(c.Params("id"))
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Invalid id: " + err.Error())
